@@ -1,0 +1,26 @@
+{
+    "name": "foostart/package-company",
+    "description": "Manage company",
+    "keywords": [
+        "foostart",
+        "laravel 5 package company"
+    ],
+    "authors": [
+        {
+            "name": "FooStart",
+            "email": "foostart.com@gmail.com",
+            "homepage": "http://foostart.com"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "foostart/package-slideshow": "*",
+        "foostart/package-filemanager": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Foostart\\Company\\": "/"
+        }
+    },
+    "minimum-stability": "dev"
+}
