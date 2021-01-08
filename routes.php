@@ -60,7 +60,7 @@ Route::group(['middleware' => ['web']], function () {
         /**
          * company
          */
-        Route::company('admin/company/edit', [
+        Route::post('admin/company/edit', [
             'as' => 'company.company',
             'uses' => 'CompanyAdminController@company'
         ]);
@@ -89,7 +89,7 @@ Route::group(['middleware' => ['web']], function () {
             'uses' => 'CompanyAdminController@config'
         ]);
 
-        Route::company('admin/company/config', [
+        Route::post('admin/company/config', [
             'as' => 'company.config',
             'uses' => 'CompanyAdminController@config'
         ]);
@@ -102,7 +102,7 @@ Route::group(['middleware' => ['web']], function () {
             'uses' => 'CompanyAdminController@lang'
         ]);
 
-        Route::company('admin/company/lang', [
+        Route::post('admin/company/lang', [
             'as' => 'company.lang',
             'uses' => 'CompanyAdminController@lang'
         ]);
