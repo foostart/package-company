@@ -38,6 +38,9 @@ class CompanyServiceProvider extends ServiceProvider {
         // publish assets
         $this->publishAssets();
 
+        // publish migration
+        $this->publishMigrations();
+
     }
 
     /**
@@ -87,6 +90,14 @@ class CompanyServiceProvider extends ServiceProvider {
         $this->publishes([
             __DIR__ . '/public' => public_path('packages/foostart/package-company'),
         ]);
+    }
+
+    protected function publishMigrations()
+    {
+
+        $this->publishes([
+                                 __DIR__ . '/database/migrations' => $this->app->databasePath() . '/migrations',
+                         ]);
     }
 
 }

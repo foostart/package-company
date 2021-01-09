@@ -9,7 +9,14 @@ Route::get('company', [
     'as' => 'company',
     'uses' => 'Foostart\Company\Controllers\Front\CompanyFrontController@index'
 ]);
-
+Route::get('company/search/', [
+    'as' => 'company',
+    'uses' => 'Foostart\Company\Controllers\Front\CompanyFrontController@search'
+]);
+Route::get('company/{slug}', [
+    'as' => 'company',
+    'uses' => 'Foostart\Company\Controllers\Front\CompanyFrontController@show'
+]);
 
 /**
  * ADMINISTRATOR
