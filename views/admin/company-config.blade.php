@@ -1,4 +1,4 @@
-@extends('laravel-authentication-acl::admin.layouts.base-2cols')
+@extends('package-acl::admin.layouts.base-2cols')
 
 @section('title')
     {{ trans($plang_admin.'.pages.title-config') }}
@@ -46,7 +46,7 @@
 
                     <!--BODY-->
                     <div class="panel-body">
-                        {!! Form::open(['route'=>['company.config'], 'method' => 'company'])  !!}
+                        {!! Form::open(['route'=>['company.config'], 'method' => 'post'])  !!}
 
                             <div class='btn-form'>
 

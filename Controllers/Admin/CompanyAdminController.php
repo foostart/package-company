@@ -2,93 +2,69 @@
 
 /*
 |-----------------------------------------------------------------------
-| CompanyAdminController
+| CrawlerAdminController
 |-----------------------------------------------------------------------
 | @author: Kang
-| @website: http://foostart.com
+| @webcompany: http://foostart.com
 | @date: 28/12/2017
 |
 */
 
-
+use Foostart\Category\Library\Controllers\FooController;
 use Illuminate\Http\Request;
 use URL, Route, Redirect;
 use Illuminate\Support\Facades\App;
 
-use Foostart\Category\Library\Controllers\FooController;
+use Foostart\Company\Controllers\Admin\BaseCompanyAdminController;
 use Foostart\Company\Models\Company;
 use Foostart\Category\Models\Category;
-use Foostart\Slideshow\Models\Slideshow;
 use Foostart\Company\Validators\CompanyValidator;
-
+use Illuminate\Support\Facades\DB;
 
 class CompanyAdminController extends FooController {
 
     public $obj_item = NULL;
     public $obj_category = NULL;
-    public $context = NULL;
-    public $categories = NULL;
-    public $slideshow = NULL;
 
-
-    public function __construct(Request $request) {
+    public $statuses = NULL;
+    public $obj_sample = NULL;
+    public function __construct() {
 
         parent::__construct();
-
-        //models
+        // models
         $this->obj_item = new Company(array('perPage' => 10));
         $this->obj_category = new Category();
-        $this->obj_slideshow = new Slideshow();
 
-        //validators
+        // validators
         $this->obj_validator = new CompanyValidator();
-
-        //set language files
+        //$this->obj_validator_sample = new SampleValidator();
+        // set language files
         $this->plang_admin = 'company-admin';
         $this->plang_front = 'company-front';
 
-        //package name
+        // package name
         $this->package_name = 'package-company';
         $this->package_base_name = 'company';
 
-        //root routers
+        // root routers
         $this->root_router = 'company';
 
-        //page views
+        // page views
         $this->page_views = [
             'admin' => [
                 'items' => $this->package_name.'::admin.'.$this->package_base_name.'-items',
                 'edit'  => $this->package_name.'::admin.'.$this->package_base_name.'-edit',
                 'config'  => $this->package_name.'::admin.'.$this->package_base_name.'-config',
                 'lang'  => $this->package_name.'::admin.'.$this->package_base_name.'-lang',
+                'sample'  => $this->package_name.'::admin.'.$this->package_base_name.'-sample',
+                'mail'  => $this->package_name.'::admin.'.$this->package_base_name.'-mail',
             ]
         ];
 
-        //get status item
         $this->data_view['status'] = $this->obj_item->getPluckStatus();
 
-        //set category context
+        // //set category
         $this->category_ref_name = 'admin/company';
-
-        //get list of categories
-        $this->context = $this->obj_item->getContext($this->category_ref_name);
-        if ($this->context) {
-            $_params = [
-                'context_id' => $this->context->context_id
-            ];
-            $this->categories = $this->obj_category->pluckSelect($_params);
-        }
-        $this->data_view['categories'] = $this->categories;
-        $this->data_view['context'] = $this->context;
-        $this->data_view['slideshow'] = $this->obj_slideshow->pluckSelect();
-
-
-        /**
-         * Breadcrumb
-         */
-        $this->breadcrumb_1['label'] = 'Admin';
-        $this->breadcrumb_2['label'] = 'Rules';
-
     }
 
     /**
@@ -98,42 +74,16 @@ class CompanyAdminController extends FooController {
      */
     public function index(Request $request) {
 
-        /**
-         * Breadcrumb
-         */
-        $this->breadcrumb_3 = NULL;
-
-        /**
-         * Params
-         */
         $params = $request->all();
-        $user = $this->getUser();
 
-        /**
-         * Get current user and ignore admin
-         */
-        $is_admin = $this->hasPermissions(array('_superadmin'));
-
-        if ($is_admin ) {
-
-        } else if (empty($params['user_id']) || ($params['user_id'] != $user['user_id'])) {
-
-            return redirect()->route('company.list', ['user_id' => $user['user_id']]);
-
-        }
-
-        $items = $this->obj_item->selectItems($params);
+        $company = $this->obj_item->selectItems($params);
 
         // display view
         $this->data_view = array_merge($this->data_view, array(
-            'items' => $items,
+            'company' => $company,
             'request' => $request,
             'params' => $params,
-            'breadcrumb_1' => $this->breadcrumb_1,
-            'breadcrumb_2' => $this->breadcrumb_2,
-            'breadcrumb_3' => $this->breadcrumb_3,
-            'is_admin' => $is_admin,
-            'user_id' => $user['user_id'],
+            'config_status' => $this->obj_item->config_status
         ));
 
         return view($this->page_views['admin']['items'], $this->data_view);
@@ -147,49 +97,37 @@ class CompanyAdminController extends FooController {
      */
     public function edit(Request $request) {
 
-        /**
-         * Breadcrumb
-         */
-        $this->breadcrumb_3['label'] = 'Edit';
-
         $item = NULL;
+        $categories = NULL;
 
-        /**
-         * Params
-         */
         $params = $request->all();
         $params['id'] = $request->get('id', NULL);
 
-        /**
-         * Get current user and ignore admin
-         */
-        $is_admin = $this->hasPermissions(array('_superadmin'));
-        $user = $this->getUser();
+        $context = $this->obj_item->getContext($this->category_ref_name);
 
-        if ($is_admin) {
-
-        } else {
-            $params['user_id'] = $user['user_id'];
-        }
-
-        //get item data by id
         if (!empty($params['id'])) {
 
             $item = $this->obj_item->selectItem($params, FALSE);
 
             if (empty($item)) {
-                return Redirect::route($this->root_router.'.list')
+                return Redirect::route($this->root_router)
                                 ->withMessage(trans($this->plang_admin.'.actions.edit-error'));
             }
+        }
+
+        //get categories by context
+        $context = $this->obj_item->getContext($this->category_ref_name);
+        if ($context) {
+            $params['context_id'] = $context->context_id;
+            $categories = $this->obj_category->pluckSelect($params);
         }
 
         // display view
         $this->data_view = array_merge($this->data_view, array(
             'item' => $item,
+            'categories' => $categories,
             'request' => $request,
-            'breadcrumb_1' => $this->breadcrumb_1,
-            'breadcrumb_2' => $this->breadcrumb_2,
-            'breadcrumb_3' => $this->breadcrumb_3,
+            'context' => $context,
         ));
         return view($this->page_views['admin']['edit'], $this->data_view);
     }
@@ -199,11 +137,11 @@ class CompanyAdminController extends FooController {
      * @return view edit page
      * @date 27/12/2017
      */
-    public function company(Request $request) {
+    public function post(Request $request) {
 
         $item = NULL;
 
-        $params = array_merge($request->all(), $this->getUser());
+        $params = array_merge($this->getUser(), $request->all());
 
         $is_valid_request = $this->isValidRequest($request);
 
@@ -218,7 +156,8 @@ class CompanyAdminController extends FooController {
 
                 if (!empty($item)) {
 
-                    $item = $this->obj_item->updateItem($params, $id);
+                    $params['id'] = $id;
+                    $item = $this->obj_item->updateItem($params);
 
                     // message
                     return Redirect::route($this->root_router.'.edit', ["id" => $item->id])
@@ -226,7 +165,7 @@ class CompanyAdminController extends FooController {
                 } else {
 
                     // message
-                    return Redirect::route($this->root_router.'.list')
+                    return Redirect::route($this->root_router)
                                     ->withMessage(trans($this->plang_admin.'.actions.edit-error'));
                 }
 
@@ -268,7 +207,7 @@ class CompanyAdminController extends FooController {
 
         $item = NULL;
         $flag = TRUE;
-        $params = array_merge($request->all(), $this->getUser());
+        $params = array_merge($this->getUser(), $request->all());
         $delete_type = isset($params['del-forever'])?'delete-forever':'delete-trash';
         $id = (int)$request->get('id');
         $ids = $request->get('ids');
@@ -288,13 +227,50 @@ class CompanyAdminController extends FooController {
                 }
             }
             if ($flag) {
-                return Redirect::route($this->root_router.'.list')
+                return Redirect::route($this->root_router)
                                 ->withMessage(trans($this->plang_admin.'.actions.delete-ok'));
             }
         }
 
-        return Redirect::route($this->root_router.'.list')
+        return Redirect::route($this->root_router)
                         ->withMessage(trans($this->plang_admin.'.actions.delete-error'));
+    }
+
+    /**
+     * Delete existing item
+     * @return view list of items
+     * @date 27/12/2017
+     */
+    public function restore(Request $request) {
+
+        $item = NULL;
+        $flag = TRUE;
+        $params = array_merge($this->getUser(), $request->all());
+        $id = (int)$request->get('id');
+        $ids = $request->get('ids');
+
+        $is_valid_request = $this->isValidRequest($request);
+
+        if ($is_valid_request && (!empty($id) || !empty($ids))) {
+
+            $ids = !empty($id)?[$id]:$ids;
+
+            foreach ($ids as $id) {
+
+                $params['id'] = $id;
+
+                if (!$this->obj_item->restoreItem($params)) {
+                    $flag = FALSE;
+                }
+            }
+            if ($flag) {
+                return Redirect::route($this->root_router)
+                    ->withMessage(trans($this->plang_admin.'.actions.restore-ok'));
+            }
+        }
+
+        return Redirect::route($this->root_router)
+            ->withMessage(trans($this->plang_admin.'.actions.restore-error'));
     }
 
     /**
@@ -303,23 +279,17 @@ class CompanyAdminController extends FooController {
      * @return view config page
      */
     public function config(Request $request) {
-
-
-        /**
-         * Breadcrumb
-         */
-        $this->breadcrumb_3['label'] = 'Config';
-
         $is_valid_request = $this->isValidRequest($request);
         // display view
-        $config_path = realpath(base_path('config/package-company.php'));
-        $package_path = realpath(base_path('vendor/foostart/package-company'));
+        $config_path = realpath(base_path('config/package-crawler.php'));
+        $package_path = realpath(base_path('vendor/foostart/package-crawler'));
 
         $config_bakup = $package_path.'/storage/backup/config';
         if (!file_exists($config_bakup)) {
             mkdir($config_bakup, 0755    , true);
         }
         $config_bakup = realpath($config_bakup);
+
 
         if ($version = $request->get('v')) {
             //load backup config
@@ -329,7 +299,7 @@ class CompanyAdminController extends FooController {
             $content = file_get_contents($config_path);
         }
 
-        if ($request->isMethod('company') && $is_valid_request) {
+        if ($request->isMethod('post') && $is_valid_request) {
 
             //create backup of current config
             file_put_contents($config_bakup.'/package-company-'.date('YmdHis',time()).'.php', $content);
@@ -346,9 +316,6 @@ class CompanyAdminController extends FooController {
             'request' => $request,
             'content' => $content,
             'backups' => $backups,
-            'breadcrumb_1' => $this->breadcrumb_1,
-            'breadcrumb_2' => $this->breadcrumb_2,
-            'breadcrumb_3' => $this->breadcrumb_3,
         ));
 
         return view($this->page_views['admin']['config'], $this->data_view);
@@ -361,13 +328,6 @@ class CompanyAdminController extends FooController {
      * @return view lang page
      */
     public function lang(Request $request) {
-
-
-        /**
-         * Breadcrumb
-         */
-        $this->breadcrumb_3['label'] = 'Lang';
-
         $is_valid_request = $this->isValidRequest($request);
         // display view
         $langs = config('package-company.langs');
@@ -385,7 +345,6 @@ class CompanyAdminController extends FooController {
                 }
             }
         }
-
 
         $lang_bakup = realpath($package_path.'/storage/backup/lang');
         $lang = $request->get('lang')?$request->get('lang'):'en';
@@ -408,13 +367,13 @@ class CompanyAdminController extends FooController {
             }
         }
 
-        if ($request->isMethod('company') && $is_valid_request) {
+        if ($request->isMethod('post') && $is_valid_request) {
 
             //create backup of current config
             foreach ($lang_paths as $key => $value) {
                 $content = file_get_contents($value);
 
-                //format file name company-admin-YmdHis.php
+                //format file name crawler-admin-YmdHis.php
                 file_put_contents($lang_bakup.'/'.$key.'/company-admin-'.date('YmdHis',time()).'.php', $content);
             }
 
@@ -439,9 +398,6 @@ class CompanyAdminController extends FooController {
             'langs'   => $langs,
             'lang_contents' => $lang_contents,
             'lang' => $lang,
-            'breadcrumb_1' => $this->breadcrumb_1,
-            'breadcrumb_2' => $this->breadcrumb_2,
-            'breadcrumb_3' => $this->breadcrumb_3,
         ));
 
         return view($this->page_views['admin']['lang'], $this->data_view);
@@ -455,11 +411,6 @@ class CompanyAdminController extends FooController {
      */
     public function copy(Request $request) {
 
-        /**
-         * Breadcrumb
-         */
-        $this->breadcrumb_3['label'] = 'Copy';
-
         $params = $request->all();
 
         $item = NULL;
@@ -472,26 +423,72 @@ class CompanyAdminController extends FooController {
             $item = $this->obj_item->selectItem($params, FALSE);
 
             if (empty($item)) {
-                return Redirect::route($this->root_router.'.list')
+                return Redirect::route($this->root_router.'.company')
                                 ->withMessage(trans($this->plang_admin.'.actions.edit-error'));
             }
 
             $item->id = NULL;
         }
 
+        $categories = $this->obj_category->pluckSelect($params);
 
         // display view
         $this->data_view = array_merge($this->data_view, array(
             'item' => $item,
+            'categories' => $categories,
             'request' => $request,
             'context' => $context,
-            'breadcrumb_1' => $this->breadcrumb_1,
-            'breadcrumb_2' => $this->breadcrumb_2,
-            'breadcrumb_3' => $this->breadcrumb_3,
         ));
 
         return view($this->page_views['admin']['edit'], $this->data_view);
     }
 
+    /**
+     * Search user by name
+     * @return view edit page
+     * @date 23/04/2018
+     */
+    public function search(Request $request){
+        if($request->ajax())
+        {
+            $output = '';
+            $query = $request->get('query');
+            if($query != '')
+            {
+            $data = DB::table('user_profile')
+                ->where('last_name', 'like', '%'.$query.'%')
+                ->orWhere('first_name', 'like', '%'.$query.'%')
+                ->get();
+            }
+            $total_row = $data->count();
+            if($total_row > 0)
+            {
+                foreach($data as $row)
+                {
+                    $output .= '
+                    <tr>
+                    <td>'.$row->id.'</td>
+                    <td>'.$row->first_name.'</td>
+                    <td>'.$row->last_name.'</td>
+                    </tr>
+                    ';
+                }
+            }else
+            {
+                $output = '
+                <tr>
+                    <td align="center" colspan="5">No Data Found</td>
+                </tr>
+                ';
+            }
+            $data = array(
+                'table_data'  => $output,
+                'total_data'  => $total_row
+               );
+
+            echo json_encode($data);
+
+        }
+    }
 
 }

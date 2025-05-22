@@ -1,0 +1,45 @@
+.type-1234 {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: white;
+  z-index: 99999;
+  visibility: hidden;
+  opacity: 0;
+  transition: 2s;
+}
+.type-1234 .m-splash-screen-progress-wrapper {
+  position: absolute;
+  bottom: 55%;
+  left: 20%;
+  right: 20%;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #EDEDED;
+}
+.type-1234 .m-splash-screen-progress-wrapper .m-splash-screen-progress {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #cb7152;
+  transition: width 1s linear;
+}
+.type-1234 .m-splash-screen-progress-wrapper img {
+  margin: auto;
+  display: block;
+}
+.type-1234 .m-splash-screen-progress-wrapper .active100 {
+  width: 100% !important;
+}
+.loaded {
+  visibility: visible !important;
+  opacity: 1;
+  transition: all 0.5s 1s ease-out;
+}
+.loaded .m-splash-screen-progress {
+  width: 0%;
+  transition: 1s;
+}

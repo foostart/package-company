@@ -1,13 +1,12 @@
-@extends('laravel-authentication-acl::admin.layouts.base-2cols')
+@extends('package-acl::admin.layouts.base-2cols')
 
 @section('title')
-    {{ trans($plang_admin.'.pages.title-list') }}
+    {{ trans($plang_admin.'.pages.title-company') }}
 @stop
 
 @section('content')
 
     <div class="row">
-        <div class="col-md-12">
 
             <!--LIST OF ITEMS-->
             <div class="col-md-9">
@@ -17,16 +16,13 @@
                     <!--HEADING-->
                     <div class="panel-heading">
                         <h3 class="panel-title bariol-thin"><i class="fa fa-list-ul" aria-hidden="true"></i>
-                            {!! $request->all() ? trans($plang_admin.'.pages.title-list-search') : trans($plang_admin.'.pages.title-list') !!}
+                            {!! $request->all() ? trans($plang_admin.'.pages.title-list-search-company') : trans($plang_admin.'.pages.title-company') !!}
                         </h3>
                     </div>
 
                     <!--DESCRIPTION-->
                     <div class='panel-info panel-description'>
-                        {!! trans($plang_admin.'.descriptions.list') !!} <br>
-                        @if($is_admin)
-                        <p>You are admin, <a href="{!! Url::route('company.list',['user_id' => $user_id]) !!}">click here</a> to view your created rules
-                        @endif
+                        {!! trans($plang_admin.'.descriptions.list') !!}</h4>
                     </div>
                     <!--/DESCRIPTION-->
 
@@ -68,8 +64,6 @@
                 @include('package-company::admin.company-search')
             </div>
             <!--/SEARCH-->
-
-        </div>
     </div>
 @stop
 

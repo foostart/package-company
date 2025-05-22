@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="156px" height="26px" viewBox="0 0 156 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+    	<mask id="mask" maskUnits="objectBoundingBox">
+    		<path fill="#FFFFFF" d="M2.9,26H0C0,26,1,26,2.9,26z"/>
+	<path fill="#FFFFFF" d="M4.3,26c-0.5,0-0.9,0-1.3,0H78h75.1c-0.4,0-0.9,0-1.3,0H4.3z"/>
+	<path fill="#FFFFFF" d="M156,26h-2.9C155,26,156,26,156,26z"/>
+	<path fill="#FFFFFF" d="M151.7,26c-7.6-0.2-24.6-1.3-44.3-6.9C86.3,12.5,78,0,78,0s-8.3,12.5-29.5,19C28.8,24.6,11.9,25.8,4.3,26
+		H151.7z"/>
+    	</mask>
+    </defs>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path fill="#FFFFFF" d="M2.9,26H0C0,26,1,26,2.9,26z"/>
+	<path fill="#FFFFFF" d="M4.3,26c-0.5,0-0.9,0-1.3,0H78h75.1c-0.4,0-0.9,0-1.3,0H4.3z"/>
+	<path fill="#FFFFFF" d="M156,26h-2.9C155,26,156,26,156,26z"/>
+	<path fill="#FFFFFF" d="M151.7,26c-7.6-0.2-24.6-1.3-44.3-6.9C86.3,12.5,78,0,78,0s-8.3,12.5-29.5,19C28.8,24.6,11.9,25.8,4.3,26
+		H151.7z"/>    </g>
+</svg>

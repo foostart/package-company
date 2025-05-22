@@ -1,0 +1,388 @@
+.type-25 {
+  background: #e4dccf;
+  background-size: cover;
+  position: relative;
+  @import url('https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700|Varela+Round');
+  @import url('font-awesome.min.css');
+}
+.type-25 h2 {
+  margin: 0;
+  color: #666;
+  padding-top: 90px;
+  font-size: 52px;
+  font-family: "trebuchet ms", sans-serif;
+}
+.type-25 .item {
+  background: #797171;
+  text-align: center;
+  height: 300px !important;
+}
+.type-25 .carousel {
+  margin-top: 20px;
+}
+.type-25 .bs-example {
+  margin: 20px;
+}
+.type-25 .carousel.carousel-fade .item {
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.type-25 .carousel.carousel-fade .active.item {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+@font-face {
+  font-family: 'icomoon';
+  src: url(http://localhost/training/vendor/foostart/package-crawler/public/fonts/icons.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'theme';
+  src: url(http://localhost/training/vendor/foostart/package-crawler/public/fonts/theme-icons.ttf) format('truetype'), url(../fonts/theme-icons.woff) format('woff'), url(https://vip-restaurant.vamtam.com/wp-content/themes/vip-restaurant/vamtam/assets/fonts/theme-icons/theme-icons.svg#theme-icons) format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+.type-25 .top {
+  background-size: cover;
+  min-height: 300px;
+  position: relative;
+}
+.type-25 .top::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.5);
+}
+.type-25 .app {
+  overflow: hidden;
+}
+.type-25 .icon {
+  color: #cb7152;
+  font-size: 60px !important;
+}
+.type-25 .icon:hover {
+  font-size: 66px !important;
+}
+.type-25 .icon {
+  line-height: 100px !important;
+}
+.type-25 .wrapper {
+  width: 100%;
+  max-width: 1260px;
+  margin: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.type-25 input[type="text"],
+.type-25 input[type="email"],
+.type-25 input[type="tel"],
+.type-25 textarea,
+.type-25 select {
+  box-sizing: border-box;
+  padding: 15px;
+  width: 100%;
+  position: relative;
+  border: none;
+  outline: none;
+  border: solid 1px rgba(0,0,0,0.15);
+  margin: 0;
+  background: #ffffff;
+  color: #000000;
+  margin-bottom: 10px;
+  transition: all 0.4s;
+  font-size: 14px;
+  border-radius: 4px;
+}
+.type-25 input[type="text"]:focus,
+.type-25 input[type="email"]:focus,
+.type-25 input[type="tel"]:focus,
+.type-25 textarea:focus,
+.type-25 select:focus {
+  border-color: #e80000;
+}
+.type-25 textarea {
+  height: 200px;
+  resize: none;
+}
+.type-25 h3,
+.type-25 h5 {
+  font-family: 'Libre Baskerville';
+}
+.type-25 .crawler-col .title,
+.type-25 .time-col .title {
+  font-size: 40px;
+  line-height: 50px;
+  padding: 15px 0;
+}
+.type-25 .crawler-col h5,
+.type-25 .time-col h5 {
+  font-size: 18px;
+  line-height: 22px;
+  margin-bottom: 15px;
+}
+.type-25 .crawler-col p,
+.type-25 .time-col p {
+  line-height: 24px;
+  font-size: 16px;
+}
+.type-25 .time-col {
+  padding: 50px 0 30px;
+}
+.type-25 .con-col {
+  margin-top: 60px !important;
+}
+.type-25 .time-col h3 {
+  padding-top: 30px;
+}
+.type-25 .crawler-col .large-icon {
+  width: 61px;
+  height: 61px;
+  border-radius: 60px;
+  transition: all 0.3s ease-in;
+  color: #333;
+  line-height: 61px;
+  font-size: 30px;
+  display: inline-block;
+  margin: 10px 0;
+}
+.type-25 .crawler-col .large-icon:hover {
+  background: #fff;
+  color: #cb7152;
+}
+.type-25 .crawler-col .icon-group a {
+  color: #333;
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  border-radius: 32px;
+  transition: all 0.3s ease-in;
+  font-size: 20px;
+  line-height: 32px;
+}
+.type-25 .crawler-col .icon-group a:hover {
+  background: #fff;
+  color: #cb7152;
+}
+.type-25 .crawler-col .icon {
+  font-family: 'icomoon' !important;
+  font-weight: normal !important;
+  font-style: normal !important;
+  display: inline-block;
+  min-width: 1em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.type-25 .crawler-col .icon.shortcode {
+  line-height: 1.15;
+}
+.type-25 .crawler-col .theme.icon {
+  font-family: 'theme' !important;
+}
+.type-25 .crawler {
+  position: relative;
+  z-index: 100;
+}
+.type-25 .crawler-form {
+  background: #fff;
+  position: relative;
+  border-radius: 20px;
+  margin-top: -50px;
+  padding-bottom: 75px;
+}
+.type-25 .crawler-form::before,
+.type-25 .crawler-form::after {
+  content: "";
+  display: block;
+  width: 156px;
+  height: 26px;
+  position: absolute;
+  left: 50%;
+  margin-left: -78px;
+}
+.type-25 .crawler-form::before {
+  background: url('../images/ornament-top.svg');
+  top: -25px;
+}
+.type-25 .crawler-form::after {
+  background: url('../images/ornament-bottom.svg');
+  bottom: -25px;
+}
+.type-25 .crawler-form-inner {
+  padding: 30px 10px 0;
+}
+.type-25 .crawler-form .tabNav {
+  padding: 0;
+}
+.type-25 .crawler-form .tabNav li {
+  padding: 10px 20px;
+  margin: 0;
+}
+.type-25 .crawler-form .tabNav li a {
+  font-family: 'Libre Baskerville';
+  font-size: 20px;
+  font-weight: normal;
+  outline: none;
+  line-height: 1;
+  text-decoration: none;
+  color: #000;
+  border-bottom: 3px solid transparent;
+  display: block;
+  padding: 10px 0px;
+  transition: all 0.3s ease-in;
+}
+.type-25 .crawler-form .tabNav li.active a,
+.type-25 .crawler-form .tabNav li:hover a {
+  color: #cb7152;
+  border-color: #cb7152;
+}
+.type-25 .form .req-symbol {
+  color: #e80000;
+}
+.type-25 .form-title {
+  font: normal 40px/50px 'Libre Baskerville';
+  color: #333;
+  margin-top: 0.6em;
+  margin-bottom: 0.6em;
+}
+.type-25 .form .field {
+  margin-bottom: 25px;
+}
+.type-25 .form .field label {
+  text-transform: uppercase;
+  font-weight: normal !important;
+  font-size: 11px;
+  margin-bottom: 10px;
+  color: #6b6b6b;
+  display: block;
+}
+.type-25 .form .field .error-mes {
+  display: none;
+}
+.type-25 .form .field.required label::after {
+  content: "*";
+  color: #e80000;
+  display: inline-block;
+  margin-left: 5px;
+}
+.type-25 .form .field.error input {
+  border-color: #e80000;
+}
+.type-25 .form .field.error .error-mes {
+  display: block;
+  margin-top: 20px;
+  color: #e80000;
+}
+.type-25 .form .btn-form {
+  display: inline-block;
+  border-radius: 10em;
+  font-size: 13px;
+  padding: 1em 2em;
+  transition: all .3s ease-out;
+  background: #fff;
+  border: solid 1px #cb7152;
+  color: #000000;
+  width: auto;
+}
+.type-25 .form .btn-form:focus {
+  box-shadow: none;
+}
+.type-25 .form .btn-form:hover {
+  border-color: #000;
+  background: #000;
+  color: #fff;
+}
+.type-25 .form-book {
+  padding: 0 15px;
+  max-width: 90%;
+  margin: auto;
+}
+.type-25 .form-book .form-header .form-title {
+  font-size: 30px;
+  margin: 0;
+  line-height: 1.6em;
+  margin-top: 50px;
+}
+.type-25 .form-book .form-header p {
+  text-transform: uppercase;
+  font-size: 12px;
+  color: #777;
+  padding-bottom: 30px;
+}
+.type-25 .form-book .inline-group .field {
+  display: inline-block;
+  margin: 0 5px 25px;
+}
+.type-25 .form-book .inline-group .field input,
+.type-25 .form-book .inline-group .field select {
+  max-width: 140px;
+  text-align: center;
+}
+.type-25 .form-book .inline-group .field select {
+  -webkit-appearance: none;
+}
+.type-25 .form-book .inline-group .field.size input {
+  width: 70px;
+}
+.type-25 .wrap-map {
+  margin-top: -50px;
+  background: #eee;
+  position: relative;
+  height: 500px;
+}
+.type-25 #gmap_canvas {
+  height: 500px;
+  width: 100% !important;
+  position: absolute !important;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+@media (max-width: 480px) {
+  .type-25 .crawler-col 
+        .title,
+  .type-25 .type-25 .time-col .title {
+    text-align: center !important;
+  }
+  .type-25 .crawler-form {
+    margin-top: 28px;
+    height: 786px;
+    wight: 630px;
+  }
+  .type-25 .wrap-map {
+    margin-top: 0px;
+  }
+  .type-25 .form-book .form-header .form-title {
+    font-size: 20px;
+    margin: 0;
+    line-height: 1.6em;
+    margin-top: 0;
+  }
+  .type-25 input[type="text"],
+  .type-25 input[type="email"],
+  .type-25 input[type="tel"],
+  .type-25 textarea,
+  .type-25 select {
+    padding: 9px;
+    margin-bottom: 0;
+  }
+  textarea {
+    height: 100px !important;
+    resize: none;
+  }
+}
+@media (max-width: 480px) {
+  .type-25 .form {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+  .type-25 .form-title {
+    font-size: 25px;
+    line-height: 1.5;
+  }
+}

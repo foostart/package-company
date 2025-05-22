@@ -15,6 +15,7 @@ use Foostart\Category\Helpers\SortTable;
 |   $plang_front = 'company-front'
 */
 View::composer([
+                // Company
                 'package-company::admin.company-edit',
                 'package-company::admin.company-form',
                 'package-company::admin.company-items',
@@ -22,6 +23,7 @@ View::composer([
                 'package-company::admin.company-search',
                 'package-company::admin.company-config',
                 'package-company::admin.company-lang',
+
     ], function ($view) {
 
         //Order by params
@@ -31,7 +33,6 @@ View::composer([
          * $plang-admin
          * $plang-front
          */
-
         $plang_admin = 'company-admin';
         $plang_front = 'company-front';
 
@@ -46,12 +47,12 @@ View::composer([
                 'url' => URL::route('company.edit', []),
                 'icon' => '<i class="fa fa-pencil-square-o" aria-hidden="true"></i>'
             ],
-            trans('company-admin.sidebar.list') => [
-                "url" => URL::route('company.list', []),
+            trans('company-admin.sidebar.list_companies') => [
+                "url" => URL::route('company', []),
                 'icon' => '<i class="fa fa-list-ul" aria-hidden="true"></i>'
             ],
-            trans('company-admin.sidebar.category') => [
-                'url'  => URL::route('categories.list',['_key='.$key]),
+            trans('pexcel-admin.sidebar.category') => [
+                'url' => URL::route('categories.list', ['_key=' . $key]),
                 'icon' => '<i class="fa fa-sitemap" aria-hidden="true"></i>'
             ],
             trans('company-admin.sidebar.config') => [
@@ -59,7 +60,7 @@ View::composer([
                 'icon' => '<i class="fa fa-braille" aria-hidden="true"></i>'
             ],
             trans('company-admin.sidebar.lang') => [
-                "url" => URL::route('company.lang', []),
+                "url" => URL::route('company.langGet', []),
                 'icon' => '<i class="fa fa-language" aria-hidden="true"></i>'
             ],
         ];
@@ -70,16 +71,14 @@ View::composer([
          */
         $orders = [
             '' => trans($plang_admin.'.form.no-selected'),
-            'id' => trans($plang_admin.'.fields.id'),
-            'company_name' => trans($plang_admin.'.fields.name'),
-            'company_status' => trans($plang_admin.'.fields.status'),
+            'id' => trans($plang_admin.'.fields.company_id'),
+            'company_name' => trans($plang_admin.'.fields.company_name'),
             'updated_at' => trans($plang_admin.'.fields.updated_at'),
+            'status' => trans($plang_admin.'.fields.status'),
         ];
         $sortTable = new SortTable();
         $sortTable->setOrders($orders);
         $sorting = $sortTable->linkOrders();
-
-
 
         //Order by
         $order_by = [

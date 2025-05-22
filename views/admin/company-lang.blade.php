@@ -1,4 +1,4 @@
-@extends('laravel-authentication-acl::admin.layouts.base-2cols')
+@extends('package-acl::admin.layouts.base-2cols')
 
 @section('title')
     {{ trans($plang_admin.'.pages.title-lang') }}
@@ -47,7 +47,7 @@
 
                     <!--BODY-->
                     <div class="panel-body">
-                        {!! Form::open(['route'=>['company.lang'], 'method' => 'company'])  !!}
+                        {!! Form::open(['route'=>['crawler.langPost'], 'method' => 'post'])  !!}
 
                             <div class='btn-form'>
 

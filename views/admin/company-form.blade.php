@@ -2,41 +2,35 @@
 | List of elements in company form
 |------------------------------------------------------------------------------->
 
-{!! Form::open(['route'=>['company.company', 'id' => @$item->id],  'files'=>true, 'method' => 'company'])  !!}
+{!! Form::open(['route'=>['company.post', 'id' => @$item->id],  'files'=>true, 'method' => 'post'])  !!}
 
     <!--BUTTONS-->
     <div class='btn-form'>
-        <!-- DELETE BUTTON -->
-        @if($item)
+        @if(isset($item) && $item->deleted_at)
+            <a href="{!! URL::route('company.restore',['id' => $item->id, '_token' => csrf_token()]) !!}"
+               class="btn btn-success pull-right margin-left-5 restore">
+                {!! trans($plang_admin.'.buttons.restore') !!}
+            </a>
+        @elseif (isset($item))
             <a href="{!! URL::route('company.delete',['id' => @$item->id, '_token' => csrf_token()]) !!}"
-            class="btn btn-danger pull-right margin-left-5 delete">
+               class="btn btn-warning pull-right margin-left-5 delete">
                 {!! trans($plang_admin.'.buttons.delete') !!}
             </a>
         @endif
-        <!-- DELETE BUTTON -->
-
         <!-- SAVE BUTTON -->
-        {!! Form::submit(trans($plang_admin.'.buttons.save'), array("class"=>"btn btn-info pull-right ")) !!}
+            {!! Form::submit(trans($plang_admin.'.buttons.save'), array("class"=>"btn btn-info pull-right ")) !!}
         <!-- /SAVE BUTTON -->
     </div>
     <!--/BUTTONS-->
 
     <!--TAB MENU-->
     <ul class="nav nav-tabs">
-        <!--BASIC-->
+        <!--MENU 1-->
         <li class="active">
             <a data-toggle="tab" href="#menu_1">
-                {!! trans($plang_admin.'.tabs.basic') !!}
+                {!! trans($plang_admin.'.tabs.menu-1') !!}
             </a>
         </li>
-
-        <!--ADVANCED-->
-        <li>
-            <a data-toggle="tab" href="#menu_2">
-                {!! trans($plang_admin.'.tabs.advance') !!}
-            </a>
-        </li>
-
         <!--OTHER-->
         <li>
             <a data-toggle="tab" href="#menu_3">
@@ -49,21 +43,20 @@
     <!--TAB CONTENT-->
     <div class="tab-content">
 
-        <!--BASIC-->
+        <!--MENU 1-->
         <div id="menu_1" class="tab-pane fade in active">
 
-            <!--POST NAME-->
+            <!--NAME-->
             @include('package-category::admin.partials.input_text', [
                 'name' => 'company_name',
-                'id' => 'company_name',
-                'label' => trans($plang_admin.'.labels.name'),
+                'label' => trans($plang_admin.'.labels.company_name'),
                 'value' => @$item->company_name,
-                'description' => trans($plang_admin.'.descriptions.name'),
+                'description' => trans($plang_admin.'.descriptions.company_name'),
                 'errors' => $errors,
             ])
-            <!--/POST NAME-->
+            <!--/NAME-->
 
-            <!--POST SLUG-->
+            <!--SITE SLUG-->
             @include('package-category::admin.partials.input_slug', [
                 'name' => 'company_slug',
                 'id' => 'company_slug',
@@ -73,105 +66,79 @@
                 'description' => trans($plang_admin.'.descriptions.slug'),
                 'errors' => $errors,
             ])
-            <!--/POST NAME-->
+            <!--/SITE SLUG-->
+
+            <!--WEBSITE-->
+            @include('package-category::admin.partials.input_text', [
+                'name' => 'company_website',
+                'label' => trans($plang_admin.'.labels.company_website'),
+                'value' => @$item->company_website,
+                'description' => trans($plang_admin.'.descriptions.company_website'),
+                'errors' => $errors,
+            ])
+            <!-- /WEBSITE-->
+
+            <!--ADDRESS-->
+            @include('package-category::admin.partials.input_text', [
+                'name' => 'company_address',
+                'label' => trans($plang_admin.'.labels.company_address'),
+                'value' => @$item->company_address,
+                'description' => trans($plang_admin.'.descriptions.company_address'),
+                'errors' => $errors,
+            ])
+            <!-- /ADDRESS-->
 
             <div class="row">
-
-               <div class='col-md-6'>
-
-                    <!-- LIST OF CATEGORIES -->
+                <div class='col-md-6'>
+                    <!--CATEGORY ID-->
                     @include('package-category::admin.partials.select_single', [
                         'name' => 'category_id',
-                        'label' => trans($plang_admin.'.labels.category'),
-                        'items' => $categories,
+                        'label' => trans($plang_admin.'.form.category_id'),
                         'value' => @$item->category_id,
-                        'description' => trans($plang_admin.'.descriptions.category', [
-                                     'href' => URL::route('categories.list', ['_key' => $context->context_key])
-                                     ]),
-                        'errors' => $errors,
+                        'items' => $categories,
+                        'description' => trans($plang_admin.'.descriptions.category_id'),
                     ])
+                    <!--/CATEGORY ID-->
+                </div>
 
-               </div>
-
-                <div class='col-md-6'>
-
-                    <!-- LIST OF CATEGORIES -->
-                    @include('package-category::admin.partials.select_single', [
-                        'name' => 'slideshow_id',
-                        'label' => trans($plang_admin.'.labels.slideshow'),
-                        'items' => $slideshow,
-                        'value' => @$item->slideshow_id,
-                        'description' => trans($plang_admin.'.descriptions.slideshow', [
-                                     'href' => URL::route('slideshows.list')
-                                     ]),
-                        'errors' => $errors,
-                    ])
-
-               </div>
-
-                <div class='col-md-6'>
+                <div class="col-md-6">
                     <!--STATUS-->
                     @include('package-category::admin.partials.select_single', [
                         'name' => 'status',
                         'label' => trans($plang_admin.'.form.status'),
-                        'value' => @$item->company_status,
+                        'value' => @$item->status,
                         'items' => $status,
                         'description' => trans($plang_admin.'.descriptions.status'),
                     ])
+                    <!--/STATUS-->
                 </div>
-
             </div>
 
-            <!--POST DESCRIPTION-->
+             <!--DESCRIPTION-->
             @include('package-category::admin.partials.textarea', [
                 'name' => 'company_description',
-                'label' => trans($plang_admin.'.labels.description'),
+                'label' => trans($plang_admin.'.labels.company_description'),
                 'value' => @$item->company_description,
-                'description' => trans($plang_admin.'.descriptions.description'),
-                'rows' => 70,
+                'description' => trans($plang_admin.'.descriptions.company_description'),
+                'rows' => 25,
                 'tinymce' => true,
                 'errors' => $errors,
             ])
-            <!--/POST DESCRIPTION-->
-
+            <!--/DESCRIPTION-->
         </div>
-
-        <!--ADVANCED-->
-        <div id="menu_2" class="tab-pane fade">
-            <!--POST OVERVIEW-->
-            @include('package-category::admin.partials.textarea', [
-            'name' => 'company_overview',
-            'label' => trans($plang_admin.'.labels.overview'),
-            'value' => @$item->company_overview,
-            'description' => trans($plang_admin.'.descriptions.overview'),
-            'tinymce' => false,
-            'errors' => $errors,
-            ])
-            <!--/POST OVERVIEW-->
-
-        </div>
-
+        <!--/END MENU1-->
         <!--OTHER-->
         <div id="menu_3" class="tab-pane fade">
-            <!--POST IMAGE-->
+            <!--SITE IMAGE-->
             @include('package-category::admin.partials.input_image', [
-            'name' => 'company_image',
-            'label' => trans($plang_admin.'.labels.image'),
-            'value' => @$item->company_image,
-            'description' => trans($plang_admin.'.descriptions.image'),
-            'errors' => $errors,
-            ])
-            <!--/POST IMAGE-->
-
-            <!--POST FILES-->
-            @include('package-category::admin.partials.input_files', [
-                'name' => 'files',
-                'label' => trans($plang_admin.'.labels.files'),
-                'value' => @$item->company_files,
-                'description' => trans($plang_admin.'.descriptions.files'),
+                'name' => 'company_image',
+                'label' => trans($plang_admin.'.labels.company_image'),
+                'value' => @$item->company_image,
+                'description' => trans($plang_admin.'.descriptions.company_image'),
                 'errors' => $errors,
+                'lfm_config' => TRUE
             ])
-            <!--/POST FILES-->
+            <!--/SITE IMAGE-->
         </div>
 
     </div>

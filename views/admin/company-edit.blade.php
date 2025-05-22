@@ -15,7 +15,7 @@
 |
 |_______________________________________________________________________________
 -->
-@extends('laravel-authentication-acl::admin.layouts.base-2cols')
+@extends('package-acl::admin.layouts.base-2cols')
 
 @section('title')
     {{ trans($plang_admin.'.pages.title-edit') }}
@@ -23,8 +23,6 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-12">
-
         <div class="col-md-9">
             <div class="panel panel-info">
 
@@ -42,7 +40,7 @@
 
                 <!--DESCRIPTION-->
                 <div class='panel-description'>
-                    {!! trans($plang_admin.'.descriptions.form') !!}</h4>
+                    {!! trans($plang_admin.'.descriptions.company_form') !!}</h4>
                 </div>
 
                 <!-- ERRORS NAME  -->
@@ -77,6 +75,5 @@
             @include('package-company::admin.company-search')
         </div>
 
-    </div>
 </div>
 @stop

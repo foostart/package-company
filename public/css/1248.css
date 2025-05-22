@@ -1,0 +1,168 @@
+.type-1248 .glyphicon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-style: normal;
+  margin-top: 8px;
+  font-weight: 400;
+  line-height: 1;
+  transition: margin-left 2s, background-color 1s;
+  -moz-transition: margin-left 2s, background-color 1s;
+  -webkit-transition: margin-left 2s, background-color 1s;
+}
+.type-1248 .glyphicon-chevron-up:before {
+  padding-left: 12px;
+}
+.type-1248 #back-to-top {
+  position: fixed;
+  bottom: 20px;
+  width: 40px;
+  height: 35px;
+  right: 30px;
+  z-index: 99;
+  outline: none;
+  background-color: #fff;
+  color: #cb7152;
+  cursor: pointer;
+  border: solid 1px #cb7152;
+  border-radius: 50%;
+}
+.type-1248 #back-to-top:hover {
+  background-color: #cb7152;
+  color: #fff;
+}
+.type-1248 #back-to-top.show {
+  opacity: 1;
+}
+.type-1248 #style-switcher {
+  width: 150px;
+  padding: 15px 15px 15px 15px;
+  background: #2b2b2b;
+  color: #f0f0f0;
+  min-height: 100px;
+  display: block;
+  font: 11px/12px Arial, sans-serif;
+  position: fixed !important;
+  z-index: 900000 !important;
+  top: 170px;
+}
+.type-1248 #style-switcher * {
+  font: 11px/12px Arial, sans-serif;
+}
+.type-1248 #style-switcher h4 {
+  color: #606060;
+  text-transform: uppercase;
+  margin: 15px 0 10px 0;
+  text-indent: 0;
+  text-align: center;
+  line-height: 1 !important;
+}
+.type-1248 #style-switcher section:first-child h4 {
+  margin-top: 0;
+}
+.type-1248 #style-switcher .section-contents {
+  text-align: center;
+}
+.type-1248 #style-switcher .style-switcher-group.buttons .section-contents {
+  line-height: 0;
+}
+.type-1248 #style-switcher select {
+  display: block;
+  border: 0;
+  padding: 5px;
+  color: #2b2b2b;
+}
+.type-1248 #style-switcher a[name=Reset] {
+  background: rgba(0,0,0,0.4);
+  font-size: 10px;
+  display: block;
+  clear: both;
+  padding: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #ffffff !important;
+  margin-top: 8px;
+  text-decoration: none;
+}
+.style-switcher-group.buttons a {
+  display: inline-block;
+  border: 0;
+  text-decoration: none;
+  position: relative;
+}
+.type-1248 #toggle-style-switcher {
+  right: 150px;
+  width: 33px;
+  height: 33px;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 25px;
+  display: block;
+  padding: 4px;
+  text-align: center;
+  z-index: 9998;
+  border: none !important;
+  position: relative;
+  background: #cb7152;
+  text-shadow: 0 -1px 0 #b45636;
+  color: #ffffff !important;
+}
+.type-1248 #toggle-style-switcher:hover {
+  width: 36px;
+  margin-right: -3px;
+  padding-right: 6px;
+  text-decoration: none;
+  margin-left: 0;
+  color: #ffffff !important;
+}
+.type-1248 #toggle-style-switcher:after {
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 11px;
+  left: -5px;
+  border: 5px solid transparent;
+  border-left: 0;
+}
+.type-1248 #toggle-style-switcher span {
+  margin-right: 2px;
+  display: block;
+}
+.bgr-style {
+  width: 28px;
+  height: 28px;
+  display: block;
+  float: left;
+  margin: 5px;
+  border-radius: 3px;
+}
+.type-1248 #span-setting {
+  position: fixed !important;
+  z-index: 900000 !important;
+  top: 140px;
+  left: 0;
+}
+.type-1248 #span-setting #toggle-style-switcher {
+  position: absolute;
+  top: 0;
+  right: -35px !important;
+  border-radius: 0 1px 1px 0;
+  margin-left: 0;
+  margin-right: 2px;
+}
+.type-1248 #span-setting #toggle-style-switcher:after {
+  border-right-color: #cb7152 !important;
+}
+.type-1248 #span-setting #toggle-style-switcher:before {
+  content: "\e035";
+  font-family: theme;
+}
+.type-1248 #span-setting #toggle-style-switcher:hover {
+  padding-right: 4px;
+}
+.type-1248 #span-setting:hover #toggle-style-switcher {
+  padding-left: 6px !important;
+  margin-right: 0 !important;
+  opacity: 1;
+}

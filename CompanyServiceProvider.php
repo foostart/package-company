@@ -41,6 +41,9 @@ class CompanyServiceProvider extends ServiceProvider {
         // publish migration
         $this->publishMigrations();
 
+        // public seeders
+        $this->publishSeeders(__DIR__);
+
     }
 
     /**
@@ -49,7 +52,7 @@ class CompanyServiceProvider extends ServiceProvider {
      * @return void
      */
     public function register() {
-        include __DIR__ . '/routes.php';
+        include __DIR__ . '/Routes/company.php';
     }
 
     /**
@@ -98,6 +101,18 @@ class CompanyServiceProvider extends ServiceProvider {
         $this->publishes([
                                  __DIR__ . '/database/migrations' => $this->app->databasePath() . '/migrations',
                          ]);
+    }
+
+    /**
+     * Publish seeders
+     * @source: foostart/package-company/database/seeders
+     * @destination: database/seeders
+     */
+    protected function publishSeeders()
+    {
+        $this->publishes([
+            __DIR__ . '/database/seeders' => $this->app->databasePath() . '/seeders',
+        ]);
     }
 
 }

@@ -4,16 +4,8 @@ return [
     //Number of worlds
     'length' => [
         'company_name' => [
-            'min' => 10,
+            'min' => 2,
             'max' => 255,
-        ],
-        'company_overview' => [
-            'min' => 10,
-            'max' => 255,
-        ],
-        'company_description' => [
-            'min' => 255,
-            'max' => 0,//unlimit
         ],
     ],
     'per_page' => 1,
@@ -59,5 +51,5 @@ return [
         'edit' => ['_superadmin', '_user-editor'],
         'add' => ['_superadmin', '_user-editor'],
         'delete' => ['_superadmin', '_user-editor'],
-    ]
+    ],
 ];
